@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Countdown</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* затемнение */
+body.dimmed::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* TIMER */
+#timer {
+    display: flex;
+    gap: 20px;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timer-number {
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.timer-label {
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* CONTENT */
+#content {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+    margin-top: 24px;
+    z-index: 2;
+}
+
+.more-info {
+    font-size: 12px;
+    color: #aaa;
+    cursor: pointer;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    z-index: 5;
+}
+
+.more-info:hover {
+    color: white;
+}
+
+/* IMAGE */
+.main-image {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    transition: transform 0.2s ease, box-shadow 0.5s ease;
+}
+
+.main-image.glow {
+    box-shadow: 0 0 35px rgba(255,140,0,0.35);
+}
+
+/* BUTTON */
+#button {
+    padding: 12px 34px;
+    border-radius: 24px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    background: rgba(255,120,0,0.18);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 0 18px rgba(255,140,0,0.15);
+    animation: pulse 2s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+/* AUDIO CONTROL */
+#audioControl {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* INFO PANEL */
+.info-panel {
+    position: absolute;
+    top: 22%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.info-left,
+.info-right {
+    width: 30%;
+    font-size: 14px;
+    line-height: 2;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.info-left {
+    transform: translateX(-60px);
+    text-align: left;
+}
+
+.info-right {
+    text-align: right;
+}
+
+.info-left.active,
+.info-right.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.info-title {
+    color: #aaa;
+    margin-bottom: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.info-panel a {
+    color: white;
+    text-decoration: none;
+}
+
+.info-panel a:hover {
+    color: #ff8c00;
+}
+
+/* TELEGRAM */
+.telegram-links {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    gap: 80px;
+    z-index: 2;
+}
+
+.telegram-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+}
+
+.telegram-icon {
+    width: 32px;
+    height: 28px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="audioControl">▶</div>
+
+<!-- TIMER -->
+<div id="timer">
+    <div class="timer-section"><div class="timer-number" id="days">00</div><div class="timer-label">дн</div></div>
+    <div class="timer-section"><div class="timer-number" id="hours">00</div><div class="timer-label">ч</div></div>
+    <div class="timer-section"><div class="timer-number" id="minutes">00</div><div class="timer-label">м</div></div>
+    <div class="timer-section"><div class="timer-number" id="seconds">00</div><div class="timer-label">с</div></div>
+</div>
+
+<!-- CONTENT -->
+<div id="content">
+    <div class="more-info" id="infoToggle">more info.</div>
+
+    <img src="cover.png" class="main-image" id="mainImage">
+
+    <a id="button" href="https://soundcloud.com/eveluv/hellsmokeshighschooleve" target="_blank" rel="noopener noreferrer">
+        слушать
+    </a>
+</div>
+
+<!-- INFO -->
+<div class="info-panel">
+    <div class="info-left" id="leftInfo">
+        <div class="info-title">PRODUCED BY:</div>
+        <a href="https://t.me/noirnovella" target="_blank" rel="noopener noreferrer">NOIRNOVEL</a><br>
+        <a href="https://t.me/chroniclesevenn" target="_blank" rel="noopener noreferrer">CHRONICLESEVEN</a><br>
+        <a href="https://t.me/northcreepztg" target="_blank" rel="noopener noreferrer">NORTHCREEPZ</a><br>
+        <a href="https://t.me/uplayd" target="_blank" rel="noopener noreferrer">UPLAYD</a><br>
+        <a href="https://t.me/prod_roadring" target="_blank" rel="noopener noreferrer">ROADRING</a><br>
+        <a href="http://www.youtube.com/@ladlegard" target="_blank" rel="noopener noreferrer">LADLEGARD</a><br>
+        <a href="https://t.me/blokkkeith19" target="_blank" rel="noopener noreferrer">BLOKKKEITH19</a><br>
+        <a href="http://instagram.com/yxngkenay" target="_blank" rel="noopener noreferrer">YXNGKENAY</a><br>
+        <a href="http://t.me/whitew4rlock" target="_blank" rel="noopener noreferrer">WHITEW4RLOCK</a>
+    </div>
+
+    <div class="info-right" id="rightInfo">
+        <div class="info-title">FEATURING:</div>
+        <a href="https://t.me/Kurtguettosk" target="_blank" rel="noopener noreferrer">KURT GUETTO</a><br>
+        <a href="https://t.me/angelhvh33" target="_blank" rel="noopener noreferrer">FACELESS ANGEL</a><br>
+        <a href="https://soundcloud.com/atsumorii66" target="_blank" rel="noopener noreferrer">ATSUMORII</a><br>
+        <a href="https://t.me/AveMontana777" target="_blank" rel="noopener noreferrer">AVEMONTANA</a><br>
+        <a href="https://t.me/zzzipkarep" target="_blank" rel="noopener noreferrer">ZIPKA</a><br>
+        <a href="https://t.me/qquietShore" target="_blank" rel="noopener noreferrer">QUIETSHORE</a><br>
+        <a href="https://t.me/slattJ" target="_blank" rel="noopener noreferrer">SLATTDATE</a><br>
+        <a href="https://t.me/o1ppttt" target="_blank" rel="noopener noreferrer">$CKARYMAIN</a>
+    </div>
+</div>
+
+<!-- TELEGRAM -->
+<div class="telegram-links">
+    <a class="telegram-item" href="https://t.me/evesoevil" target="_blank" rel="noopener noreferrer">
+        <img class="telegram-icon" src="evesoevil.png">
+        <span>evesoevil!</span>
+    </a>
+
+    <a class="telegram-item" href="https://t.me/xidizer" target="_blank" rel="noopener noreferrer">
+        <img class="telegram-icon" src="xidize.png">
+        <span>xidize++</span>
+    </a>
+</div>
+
+<audio id="snippetAudio" src="websnippet.mp3" loop preload="auto"></audio>
+
+<script>
+const targetDate = new Date("2026-04-10T15:00:00+03:00");
+const audio = document.getElementById("snippetAudio");
+const control = document.getElementById("audioControl");
+
+audio.volume = 0.25;
+
+let isPlaying = false;
+let offsetY = 0;
+
+/* TIMER */
+const interval = setInterval(updateTimer, 1000);
+
+function pad(n){ return n.toString().padStart(2,"0"); }
+
+function updateTimer(){
+    const diff = targetDate - new Date();
+
+    if(diff <= 0){
+        clearInterval(interval);
+
+        document.getElementById("timer").style.display = "none";
+        const c = document.getElementById("content");
+        c.style.display = "flex";
+        setTimeout(()=> c.style.opacity = 1, 50);
+        return;
+    }
+
+    document.getElementById("days").textContent = pad(diff/86400000|0);
+    document.getElementById("hours").textContent = pad(diff/3600000%24|0);
+    document.getElementById("minutes").textContent = pad(diff/60000%60|0);
+    document.getElementById("seconds").textContent = pad(diff/1000%60|0);
+}
+
+updateTimer();
+
+/* AUDIO */
+control.onclick = () => {
+    if(isPlaying){
+        audio.pause();
+        control.textContent = "▶";
+    } else {
+        audio.play();
+        control.textContent = "⏹";
+    }
+    isPlaying = !isPlaying;
+};
+
+/* INFO */
+document.getElementById("infoToggle").onclick = () => {
+    document.getElementById("leftInfo").classList.toggle("active");
+    document.getElementById("rightInfo").classList.toggle("active");
+
+    document.body.classList.toggle("dimmed");
+
+    const img = document.getElementById("mainImage");
+    img.classList.toggle("glow");
+
+    offsetY = offsetY === 0 ? 20 : 0;
+
+    const t = document.getElementById("infoToggle");
+    t.textContent = t.textContent === "more info." ? "close" : "more info.";
+};
+
+/* PARALLAX */
+document.addEventListener("mousemove", e => {
+    const img = document.getElementById("mainImage");
+
+    const x = (window.innerWidth/2 - e.clientX)/30;
+    const y = (window.innerHeight/2 - e.clientY)/30;
+
+    img.style.transform = `translate(${x}px, ${y + offsetY}px)`;
+});
+</script>
+
+</body>
+</html>
