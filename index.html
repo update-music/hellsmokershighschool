@@ -68,6 +68,8 @@ body.dimmed::before {
 }
 
 .more-info {
+    opacity: 0.7;
+    position: relative;
     font-size: 12px;
     color: #aaa;
     cursor: pointer;
@@ -79,6 +81,8 @@ body.dimmed::before {
 
 .more-info:hover {
     color: white;
+    opacity: 1;
+    letter-spacing: 2px;
 }
 
 /* IMAGE */
@@ -173,14 +177,24 @@ body.dimmed::before {
 }
 
 .info-panel a {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    font-size: 16px;   
+    transition: all 0.3s ease;
+    text-shadow: 
+        0 0 8px rgba(255,140,0,0.6),
+        0 0 16px rgba(255,140,0,0.5),
+        0 0 24px rgba(255,140,0,0.4),
+        0 0 36px rgba(255,140,0,0.3);
 }
 
 .info-panel a:hover {
-    color: #ff8c00;
-}
+    color: #fff;
+    text-shadow: 
+        0 0 10px rgba(255,140,0,0.8),
+        0 0 20px rgba(255,140,0,0.7),
+        0 0 30px rgba(255,140,0,0.6),
+        0 0 50px rgba(255,140,0,0.4);
+}}
 
 /* TELEGRAM */
 .telegram-links {
@@ -276,11 +290,14 @@ body.dimmed::before {
 </div>
 
 <audio id="snippetAudio" src="websnippet.mp3" loop preload="auto"></audio>
+<audio id="openSound" src="open.mp3" preload="auto"></audio>
+<audio id="closeSound" src="close.mp3" preload="auto"></audio>
 
 <script>
-const targetDate = new Date("2026-04-10T15:00:00+03:00");
 const audio = document.getElementById("snippetAudio");
 const control = document.getElementById("audioControl");
+const openSound = document.getElementById("openSound");
+const closeSound = document.getElementById("closeSound");
 
 audio.volume = 0.25;
 
@@ -327,6 +344,17 @@ control.onclick = () => {
 
 /* INFO */
 document.getElementById("infoToggle").onclick = () => {
+    const toggle = document.getElementById("infoToggle");
+    const isOpening = toggle.textContent === "more info."; // true если открываем
+
+    if(isOpening){
+        openSound.currentTime = 0;
+        openSound.play();
+    } else {
+        closeSound.currentTime = 0;
+        closeSound.play();
+    }
+
     document.getElementById("leftInfo").classList.toggle("active");
     document.getElementById("rightInfo").classList.toggle("active");
 
@@ -337,8 +365,8 @@ document.getElementById("infoToggle").onclick = () => {
 
     offsetY = offsetY === 0 ? 20 : 0;
 
-    const t = document.getElementById("infoToggle");
-    t.textContent = t.textContent === "more info." ? "close" : "more info.";
+    toggle.textContent = isOpening ? "close" : "more info.";
+
 };
 
 /* PARALLAX */
