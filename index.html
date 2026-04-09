@@ -305,34 +305,37 @@ let isPlaying = false;
 let offsetY = 0;
 
 /* TIMER */
-const interval = setInterval(updateTimer, 1000);
+const targetDate = new Date("2026-04-10T15:00:00+03:00"); // МСК
 
-function pad(n){ return n.toString().padStart(2,"0"); }
+function pad(n){ 
+    return n.toString().padStart(2,"0"); 
+}
 
-function updateTimer(){
-const targetDate = new Date("2026-04-10T15:00:00+03:00");
-
-function pad(n){ return n.toString().padStart(2,"0"); }
-
-function updateTimer(){
+function updateTimer() {
     const diff = targetDate - new Date();
 
     if(diff <= 0){
         clearInterval(interval);
+
+        // Скрываем таймер
         document.getElementById("timer").style.display = "none";
+
+        // Показываем контент
         const c = document.getElementById("content");
         c.style.display = "flex";
         setTimeout(()=> c.style.opacity = 1, 50);
         return;
     }
 
-    document.getElementById("days").textContent = pad(Math.floor(diff/86400000));
-    document.getElementById("hours").textContent = pad(Math.floor(diff/3600000)%24);
-    document.getElementById("minutes").textContent = pad(Math.floor(diff/60000)%60);
-    document.getElementById("seconds").textContent = pad(Math.floor(diff/1000)%60);
+    document.getElementById("days").textContent = pad(Math.floor(diff / 86400000));
+    document.getElementById("hours").textContent = pad(Math.floor(diff / 3600000) % 24);
+    document.getElementById("minutes").textContent = pad(Math.floor(diff / 60000) % 60);
+    document.getElementById("seconds").textContent = pad(Math.floor(diff / 1000) % 60);
 }
 
 const interval = setInterval(updateTimer, 1000);
+
+// Вызов сразу, чтобы при загрузке не было "00"
 updateTimer();
 
 /* AUDIO */
