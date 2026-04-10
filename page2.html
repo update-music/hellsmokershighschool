@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Soon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Cinzel', serif;
+}
+
+/* ФОН */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("bgpage2.jpg") center center / cover no-repeat;
+
+    filter: blur(19px) brightness(0.8);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+/* затемнение */
+body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+}
+
+
+/* ТЕКСТ */
+h1 {
+    position: relative;
+    z-index: 3;
+
+    font-size: 65px;
+    letter-spacing: 10px;
+    color: #f5e6c8;
+
+    text-shadow:
+        0 0 10px rgba(255,215,150,0.9),
+        0 0 25px rgba(255,200,120,0.7),
+        0 0 50px rgba(255,180,80,0.5);
+
+    animation: glow 4s ease-in-out infinite;
+}
+
+/* glow */
+@keyframes glow {
+    0% {
+        text-shadow:
+            0 0 10px rgba(255,215,150,0.6),
+            0 0 20px rgba(255,200,120,0.4),
+            0 0 30px rgba(255,180,80,0.3);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(255,230,180,1),
+            0 0 40px rgba(255,210,140,0.8),
+            0 0 60px rgba(255,190,100,0.6);
+    }
+    100% {
+        text-shadow:
+            0 0 10px rgba(255,215,150,0.6),
+            0 0 20px rgba(255,200,120,0.4),
+            0 0 30px rgba(255,180,80,0.3);
+    }
+}
+
+/* BACK BUTTON */
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 15px;
+    text-decoration: none;
+    color: #e6d3a3;
+
+    border-radius: 50%;
+    background: rgba(255,215,150,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,215,150,0.2);
+
+    box-shadow: 0 0 12px rgba(255,215,150,0.2);
+
+    transition: 0.3s;
+
+    z-index: 3;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255,215,150,0.6);
+}
+
+body {
+    animation: intro 1.2s ease forwards;
+}
+
+@keyframes intro {
+    from {
+        opacity: 0;
+        transform: scale(1.08);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* TELEGRAM */
+.telegram-links {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    gap: 80px;
+    z-index: 2;
+}
+
+.telegram-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 12px;
+}
+
+.telegram-icon {
+    width: 32px;
+    height: 25px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TELEGRAM -->
+<div class="telegram-links">
+    <a class="telegram-item" href="https://t.me/evesoevil" target="_blank" rel="noopener noreferrer">
+        <img class="telegram-icon" src="evesoevil.png">
+        <span>evesoevil!</span>
+    </a>
+
+    <a class="telegram-item" href="https://t.me/xidizer" target="_blank" rel="noopener noreferrer">
+        <img class="telegram-icon" src="xidize.png">
+        <span>xidize++</span>
+    </a>
+</div>
+
+
+<h1>SOON...</h1>
+
+<a href="indexdemo.html" class="back-button">←</a>
+
+</script>
+
+</body>
+</html>
