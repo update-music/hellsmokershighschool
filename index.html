@@ -8,7 +8,7 @@
 <link rel="shortcut icon" href="webicon.ico">
 
 <style>
-	
+
 body {
 
     margin: 0;
@@ -45,36 +45,12 @@ body.dimmed::before {
     pointer-events: none;
 }
 
-/* TIMER */
-#timer {
-    display: flex;
-    gap: 20px;
-    z-index: 2;
-    margin-bottom: 20px;
-}
-
-.timer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.timer-number {
-    font-size: 24px;
-    letter-spacing: 2px;
-}
-
-.timer-label {
-    font-size: 12px;
-    color: #aaa;
-}
-
 /* CONTENT */
 #content {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 1s ease;
     margin-top: 24px;
     z-index: 2;
@@ -106,6 +82,13 @@ body.dimmed::before {
     border-radius: 18px;
     margin-bottom: 24px;
     transition: transform 0.2s ease, box-shadow 0.5s ease;
+    transform: rotateX(var(--tiltX, 0deg)) rotateY(var(--tiltY, 0deg)) scale(1);
+}
+
+.main-image:hover {
+    --tiltX: 6deg;
+    --tiltY: 6deg;
+    transform: rotateX(var(--tiltX)) rotateY(var(--tiltY)) scale(1.02);
 }
 
 .main-image.glow {
@@ -147,6 +130,7 @@ body.dimmed::before {
 
 /* INFO PANEL */
 .info-panel {
+    pointer-events: none;
     position: absolute;
     top: 22%;
     width: 90%;
@@ -209,6 +193,7 @@ body.dimmed::before {
         0 0 50px rgba(255,140,0,0.4);
 }
 
+
 /* TELEGRAM */
 .telegram-links {
     position: absolute;
@@ -233,8 +218,8 @@ body.dimmed::before {
     border-radius: 50%;
     margin-bottom: 8px;
 }
+
 </style>
-</head>
 
 <body>
 
@@ -242,16 +227,10 @@ body.dimmed::before {
 
 <div id="audioControl">▶</div>
 
-<!-- TIMER -->
-<div id="timer">
-    <div class="timer-section"><div class="timer-number" id="days">00</div><div class="timer-label">дн</div></div>
-    <div class="timer-section"><div class="timer-number" id="hours">00</div><div class="timer-label">ч</div></div>
-    <div class="timer-section"><div class="timer-number" id="minutes">00</div><div class="timer-label">м</div></div>
-    <div class="timer-section"><div class="timer-number" id="seconds">00</div><div class="timer-label">с</div></div>
-</div>
 
 <!-- CONTENT -->
 <div id="content">
+
     <div class="more-info" id="infoToggle">more info.</div>
 
     <img src="cover.png" class="main-image" id="mainImage">
@@ -319,40 +298,6 @@ audio.volume = 0.25;
 let isPlaying = false;
 let offsetY = 0;
 
-/* TIMER */
-const targetDate = new Date("2026-04-10T15:00:00+03:00"); // МСК
-
-function pad(n){ 
-    return n.toString().padStart(2,"0"); 
-}
-
-function updateTimer() {
-    const diff = targetDate - new Date();
-
-    if(diff <= 0){
-        clearInterval(interval);
-
-        // Скрываем таймер
-        document.getElementById("timer").style.display = "none";
-
-        // Показываем контент
-        const c = document.getElementById("content");
-        c.style.display = "flex";
-        setTimeout(()=> c.style.opacity = 1, 100);
-        return;
-    }
-
-    document.getElementById("days").textContent = pad(Math.floor(diff / 86400000));
-    document.getElementById("hours").textContent = pad(Math.floor(diff / 3600000) % 24);
-    document.getElementById("minutes").textContent = pad(Math.floor(diff / 60000) % 60);
-    document.getElementById("seconds").textContent = pad(Math.floor(diff / 1000) % 60);
-}
-
-const interval = setInterval(updateTimer, 1000);
-
-// Вызов сразу, чтобы при загрузке не было "00"
-updateTimer();
-
 /* AUDIO */
 control.onclick = () => {
     if(isPlaying){
@@ -405,3 +350,4 @@ document.addEventListener("mousemove", e => {
 
 </body>
 </html>
+
