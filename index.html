@@ -250,12 +250,14 @@ body.dimmed::before {
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(255,215,150,0.6);
 }
-.characters-button {
+	
+	.character-select-btn {
     position: absolute;
     top: 26px;
-    left: 95px;
-
-    padding: 12px 18px;
+    left: 50%;
+    transform: translateX(-50%);
+	white-space: nowrap;
+    padding: 12px 22px;
 
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -264,26 +266,22 @@ body.dimmed::before {
     color: rgba(255,255,255,0.7);
     text-decoration: none;
 
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,120,0,0.12);
+    border: 1px solid rgba(255,215,150,0.2);
     border-radius: 8px;
 
     backdrop-filter: blur(10px);
+    box-shadow: 0 0 12px rgba(255,140,0,0.1);
+
     transition: 0.3s ease;
+    z-index: 100;
 }
 
-.characters-button:hover {
+.character-select-btn:hover {
     color: white;
-    background: rgba(255,255,255,0.12);
-    border-color: rgba(255,255,255,0.4);
-    box-shadow: 0 0 15px rgba(255,255,255,0.12);
-}
-	.character-select-btn {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    background: rgba(255,120,0,0.22);
+    border-color: rgba(255,215,150,0.5);
+    box-shadow: 0 0 20px rgba(255,140,0,0.25);
 }
 </style>
 
@@ -305,7 +303,7 @@ body.dimmed::before {
         PLAY
     </a>
 
-<a href=" second-release-page.html" class="ui-button">→</a>
+<a href="second-release-page.html" class="ui-button">→</a>
 <a href="page3.html" class="character-select-btn">
     CHOOSE CHARACTER
 </a>
