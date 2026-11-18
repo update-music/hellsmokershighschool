@@ -278,6 +278,13 @@ body.dimmed::before {
     border-color: rgba(255,255,255,0.4);
     box-shadow: 0 0 15px rgba(255,255,255,0.12);
 }
+	.character-select-btn {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
 </style>
 
 <body>
@@ -299,8 +306,9 @@ body.dimmed::before {
     </a>
 
 <a href=" second-release-page.html" class="ui-button">→</a>
-<a href="page3.html" class="characters-button">CHARACTERS</a>
-</div>
+<a href="page3.html" class="character-select-btn">
+    CHOOSE CHARACTER
+</a>
 
 <!-- INFO -->
 <div class="info-panel">
