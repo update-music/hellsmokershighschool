@@ -250,7 +250,34 @@ body.dimmed::before {
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(255,215,150,0.6);
 }
+.characters-button {
+    position: absolute;
+    top: 26px;
+    left: 95px;
 
+    padding: 12px 18px;
+
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease;
+}
+
+.characters-button:hover {
+    color: white;
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.4);
+    box-shadow: 0 0 15px rgba(255,255,255,0.12);
+}
 </style>
 
 <body>
@@ -272,8 +299,7 @@ body.dimmed::before {
     </a>
 
 <a href=" second-release-page.html" class="ui-button">→</a>
-    </a>
-
+<a href="page3.html" class="characters-button">CHARACTERS</a>
 </div>
 
 <!-- INFO -->
