@@ -555,4 +555,44 @@ button {
         height: 300px;
     }
 }
+/* DISCOGRAPHY */
 
+.discography-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+}
+
+.release-card {
+    display: block;
+    min-width: 0;
+    color: white;
+    text-decoration: none;
+    transition: .3s ease;
+}
+
+.release-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,.13);
+    transition: .3s ease;
+}
+
+.release-card:hover {
+    transform: translateY(-5px);
+}
+
+.release-title {
+    margin-top: 11px;
+    font-size: 9px;
+    color: rgba(255,255,255,.9);
+}
+
+.release-meta {
+    margin-top: 5px;
+    font-size: 8px;
+    color: rgba(255,255,255,.4);
+}
